@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Login from './pages/LogIn'
 import Home from './components/Home'
+import Notfound from './components/Notfound'
 function App() {
   useEffect(() => {
     getUser()
@@ -27,9 +28,10 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
+          {/* <Route path='/' element={<Home />} /> */}
+          <Route path='/' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path="*" element={<Notfound/>}/>
         </Routes>
       </Router>
       <Toaster />
