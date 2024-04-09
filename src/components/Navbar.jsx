@@ -13,11 +13,8 @@ const Navbar = () => {
                 method:"post",
                 withCredentials: true})
     
-            // toast(response.data.message)
-            // setIsAuthorized(false)
+  
         } catch (error) {
-            // toast(error.response.data.message)
-            // setIsAuthorized(true)
         }
     }
 
@@ -28,21 +25,23 @@ const Navbar = () => {
                     <div className="">
                 <h2 className='mx:text-xl text-normal font-bold text-sky-500 '>SocialNetwork</h2>
                     </div>
-                    <ul className={` px-20 md:px-0 lg:pl-0 duration-500 text-center lg:flex absolute lg:static lg:justify-center lg:mt-auto ${isOpen?'mt-[60px] opacity-[100%]':'mt-[-200px] opacity-0 '} itmes-center w-full left-0 gap-15  lg:gap-3 bg-white z-[10] py-5 lg:py-0 pl-11  lg:mt-auto lg:flex-row lg:w-auto lg:opacity-100 `}>
-                    <li className={`my-2 ${isOpen?"hover:bg-sky-500 hover:text-white":""}  duration-500  width-[50%] mx-auto`} onClick={()=>setIsOpen(false)}>
+                    <ul className={` px-20 md:px-0 lg:pl-0 duration-500 text-center lg:flex absolute lg:static lg:justify-center lg:mt-auto itmes-center w-full left-0 gap-15  lg:gap-3 bg-white z-[10] py-5 lg:py-0 pl-11   lg:flex-row lg:w-auto lg:opacity-100 `}>
+                    <li className={`my-2  duration-500  width-[50%] mx-auto`}>
                             <Link to="/" className="py-2 ">Home</Link>
                         </li>
+
+                        <li className={`my-2  duration-500  width-[50%] mx-auto`}>
+                            <Link to="/login" className="py-2 ">login</Link>
+                        </li>
                         
-                        {!user ? (<li className={`my-2 ${isOpen?"hover:bg-sky-500 hover:text-white":""}   duration-500 md:hover:bg-none width-[50%] mx-auto`} onClick={()=>setIsOpen(false)}>
+                        {!user ? (<li className={`my-2   duration-500 md:hover:bg-none width-[50%] mx-auto`}>
                             <Link to="/login" className="py-2 ">LogIn</Link>
                         </li>)
-                            : (<li className={`my-2 ${isOpen?"hover:bg-sky-500 hover:text-white":""}  duration-500 md:bg-none width-[50%] mx-auto`}  onClick={handleLogOut}>
+                            : (<li className={`my-2  duration-500 md:bg-none width-[50%] mx-auto`}  onClick={handleLogOut}>
                                     <button onClick={handleLogOut}>logOut</button>
                             </li>)}
                     </ul>
-                    <div className='text-sky-500 md:hidden text-3xl '>
-                {isOpen?<RxCross2   onClick={()=>setIsOpen((open)=>!open)}/>:<IoReorderThreeOutline onClick={()=>setIsOpen((open)=>!open)}  />    }
-                    </div>
+                    
 
                 </div>
             </div>
