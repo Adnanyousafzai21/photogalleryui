@@ -1,77 +1,68 @@
-
-import React, { useState } from 'react'
-import { useForm } from "react-hook-form";
+import React, { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoEyeOutline } from "react-icons/io5";
-import { IoEyeOffOutline } from "react-icons/io5";
+import axios from 'axios';
 import toast from 'react-hot-toast';
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
+import { context } from '../contextapi/context';
 
 const LogIn = () => {
+    const [showPassword, setShowPassword] = useState(false);
+    const { setIsAuthorized}= useContext(context)
+    const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const [show  , setshow]=useState(true)
-    const navigate = useNavigate()
-
-    const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm()
-    const login = async (data) => {
+    const handleLogin = async (formData) => {
         try {
+            const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/login`, formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-            const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/login`,
-                {
-                    method: 'post',
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                })
-                const loginedres = await response.json()
-            if (response.ok) {
-                    
-                    toast.success(loginedres.message);
-                    navigate("/")
+            if (response.status === 200) {
+                const { token } = response.data;
+                localStorage.setItem('token', token);
+                setIsAuthorized(true)
+                toast.success('Login successful!');
+                navigate('/');
             } else {
-              throw new Error(loginedres.message || "Login failed");
-          }
-        } catch  (error) {
-          console.error("Error during login:", error.response);
-          if (error.message) {
-            toast.error(error.message);
-        } else {
-            toast.error("Login failed. Please try again.");
+                throw new Error(response.data.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            if (error.message) {
+                toast.error(error.message);
+            } else {
+                toast.error('Login failed. Please try again.');
+            }
         }
+    };
 
-   
-        }
-    }
     return (
-        <>
-            <div className="bg-slate-100 w-[100%]  py-8  h-screen">
-                <form onSubmit={handleSubmit(login)} autoComplete='off' className="bg-white rounded-md m-auto md:w-[40%] w-[90%] lg:w-[30%] px-10 py-8" >
-
-                    <h2 className='text-sky-500 text-center font-bold text-xl'>LogIn</h2>
-                    <div className="w-full my-5 ">
-                        <label htmlFor="email">
-                            Email:
-                        </label>
-                        <input type="email" {...register("email", { required: "Email is required*" })} className='w-full px-6 py-1 border-0 border-b outline-none ' />
+        <div className="bg-slate-100 w-full py-8 h-screen flex justify-center items-center">
+            <form onSubmit={handleSubmit(handleLogin)} autoComplete="off" className="bg-white rounded-md w-[400px] px-10 py-8">
+                <h2 className="text-sky-500 text-center font-bold text-xl mb-8">Log In</h2>
+                <div className="my-5">
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" {...register('email', { required: 'Email is required*' })} className="w-full px-6 py-1 border-0 border-b outline-none" />
+                    {errors.email && <p className="text-red-500 mt-2 font-thin">{errors.email.message}</p>}
+                </div>
+                <div className="my-5">
+                    <label htmlFor="password">Password:</label>
+                    <div className="flex items-center">
+                        <input type={showPassword ? 'text' : 'password'} {...register('password', { required: 'Password is required*' })} className="w-full px-6 py-1 border-0 border-b outline-none" />
+                        {showPassword ? <IoEyeOffOutline className="cursor-pointer" onClick={() => setShowPassword(false)} /> : <IoEyeOutline className="cursor-pointer" onClick={() => setShowPassword(true)} />}
                     </div>
-                    {errors.email && <p className='text-red-500 mt-[-20px] mb-2 font-thin'>{errors.email.message}</p>}
-                    <div className="w-full my-5 ">
-                        <label htmlFor="password">
-                            Password:
-                        </label>
-                        <div className='flex'> 
-                        <input autoComplete='off' type={`${show?"password":"text"}`}{...register('password', { required: 'Password is required*' })} className='w-full px-6 py-1 border-0 border-b outline-none' />
-                         { show?<IoEyeOutline onClick={()=>setshow((prev)=>!prev)}/>:<IoEyeOffOutline onClick={()=>setshow((prev)=>!prev)}/>}
-                        </div>
-                    </div>
-                    {errors.password && <p className='text-red-500 mt-[-20px] mb-2 font-thin'>{errors.password.message}</p>}
-                    <div className="w-full my-5  text-center">
-                        <input type="submit" value="LogIn" className='text-sm hover:bg-white duration-1000 hover:text-sky-500 border-2 border-sky-500 px-7 outline-none bg-sky-500 rounded text-white' />
-                    </div>
-                    <p className=' my-53 text-center w-full text-sm  font-thin'>If you don't  have already <Link className='text-sky-600 underline font-normal ml-2' to="/signup"> SignUp </Link> !</p>
-                </form>
+                    {errors.password && <p className="text-red-500 mt-2 font-thin">{errors.password.message}</p>}
+                </div>
+                <div className="my-5 text-center">
+                    <button type="submit" className="text-sm hover:bg-white duration-1000 hover:text-sky-500 border-2 border-sky-500 px-7 outline-none bg-sky-500 rounded text-white">Log In</button>
+                </div>
+                <p className="text-center text-sm font-thin">Don't have an account? <Link to="/signup" className="text-sky-600 underline ml-1">Sign Up</Link></p>
+            </form>
+        </div>
+    );
+};
 
-                   </div>
-        </>
-    )
-}
-
-export default LogIn
+export default LogIn;
