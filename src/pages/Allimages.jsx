@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BiDotsHorizontal, BiDotsVertical } from 'react-icons/bi';
 import ProfileTitle from '../components/ProfileTitle';
 import axios from 'axios';
-import { BiWorld } from "react-icons/bi";
+// import { BiWorld } from "react-icons/bi";
+import { MdPublic } from "react-icons/md";
 import { context } from '../contextapi/context';
 const Posts = () => {
 
@@ -55,29 +56,29 @@ console.log("isAUTHORIZED",isAuthorized)
     return (
         <div className='w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center items-center py-10 m-auto'>
             {data.map((image) => {
-                if (!image.isPrivate) {
+                if (!image.isPrivate ) {
                     return (
-                        <div className='flex flex-col rounded-md my-2 sm:w-full  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg' key={image._id}>
-                            <div className="flex justify-between items-center px-2    md:px-5 my-3">
+                        <div className='flex flex-col rounded-md my-2 sm:w-full relative  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg' key={image._id}>
+                            <div className="flex justify-between items-center w-full px-2   absolute py-1 ">
                                 <ProfileTitle fullname={image?.user?.fullname} time={image?.createdAt} userId={image.user?._id} />
                                 {user._id === image.user._id ? (
-                                    <div className="">
+                                    <div className="mr-[2px]">
                                         <input
                                             type="checkbox"
                                             checked={image.isPrivate}
                                             onChange={e => handlePrivacyChange(image._id, e.target.checked)}
                                             className="mr-1 outline-sky-300"
                                         />
-                                        <span className='text-sky-300'> {image.isPrivate ? ": Private" : ": Public"}</span>
+                                        <span className='text-[#FFFFFF]'> {image.isPrivate ? ": Private" : ": Public"}</span>
                                     </div>
                                 ) : (
-                                    <div className="text-sky-300">
-                                        <BiWorld />
+                                    <div className="text-[#FFFFFF] text-3xl">
+                                        <MdPublic />
                                     </div>
                                 )}
                             </div>
                             <div className="h-80 ">
-                                <img src={image.imageUrls} alt="" className='h-full w-full object-cover rounded-b-md' />
+                                <img src={image.imageUrls} alt="" className='h-full w-full object-cover rounded-b' />
                             </div>
                         </div>
                     );

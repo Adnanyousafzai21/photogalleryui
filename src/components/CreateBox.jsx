@@ -42,7 +42,7 @@ const BoxComponent = () => {
   };
 
   return (
-    <div className='p-1 px-4'>
+    <div className='p-1 px-5  '>
       <div className='flex flex-col gap-2'>
         <input
           type='text'

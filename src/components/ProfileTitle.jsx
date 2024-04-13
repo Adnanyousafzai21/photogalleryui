@@ -1,8 +1,10 @@
 import React from 'react';
 import { format, differenceInMinutes, differenceInDays } from 'date-fns';
-import { Link } from 'react-router-dom';
+// import { FaRegCircleUser } from "react-icons/fa6";
+import { PiUserSwitchLight } from "react-icons/pi";
 
 const ProfileTitle = ({ avater, time = "2024-01-18T07:49:43.261Z", fullname, classname, userId }) => {
+
 
   const postDate = new Date(time);
   const now = new Date();
@@ -25,11 +27,10 @@ const ProfileTitle = ({ avater, time = "2024-01-18T07:49:43.261Z", fullname, cla
 
   return (
     <div className="flex gap-1 items-center rounded-md  ">
-    <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU"} alt="" className="w-16 h-16 overflow-hidden rounded-[50%]" /> 
-  
+      <PiUserSwitchLight  className="text-[#FFFFFF] text-4xl "/>
       <div>
-        <div className='text-normal font-normal text-[#333333] capitalize'>{fullname}</div>
-        <div className='postmargin text-sm font-light text-[#777777]'>{formattedTime}</div>
+        <div className='text-normal font-normal text-[#FFFFFF] capitalize'>{fullname}</div>
+        <div className='postmargin text-sm font-light text-[#FFFFFF]'>{formattedTime}</div>
       </div>
     </div>
   );

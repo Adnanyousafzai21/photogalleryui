@@ -93,8 +93,8 @@ const UploadImage = () => {
   return (
     <div className='py-5 px-5 m-auto background max-w-[900px] w-[100%] md:w-[600px] bg-white rounded-md  mt-3 shadow-lg'>
       <BoxComponent />
-      <hr className='my-2 border border-[#ffe6e6] mt-2' />
-      <div className="rounded-md  m-auto mt-[-12px]  pb-0 px-3 lg:p-5">
+      <hr className='my-2 border-[#ffe6e6] mt-2 border' />
+      <div className="rounded-md  m-auto pb-0 px-5 lg:p-5">
         <div title='Click here to upload images' className='md:p-10 p-5 m-auto h-9  rounded-md border-customtext border flex justify-center items-center'>
           <label htmlFor="fileInput" className="cursor-pointer text-customtextbold text-xl">
             <MdOutlineInsertPhoto />
