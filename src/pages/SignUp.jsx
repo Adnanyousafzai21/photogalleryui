@@ -11,12 +11,6 @@ const Signup = () => {
     console.log("this is the sign up page!!")
     const Registeration = async (data) => {
         try {
-            // const formData = new FormData();
-            // formData.append('fullname', watch('fullname'));
-            // formData.append('email', watch('email'));
-            // formData.append('password', watch('password'));
-            // // formData.append('avater', data.avater[0]);
-            // console.log(formData)
 
             const { confirm_Password, ...datatosend } = watch();
             const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/register`, {

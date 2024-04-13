@@ -25,8 +25,8 @@ const ProfileTitle = ({ avater, time="2024-01-18T07:49:43.261Z", fullname, class
   }
 
   return (
-    <Link to={`/otherprofile/${userId}`}>
-    <div className="flex gap-1 items-center ">
+  
+    <div className="flex gap-1 items-center rounded-md  ">
     <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU"} alt="" className="w-16 h-16 overflow-hidden rounded-[50%]" /> 
   
       <div>
@@ -34,7 +34,7 @@ const ProfileTitle = ({ avater, time="2024-01-18T07:49:43.261Z", fullname, class
         <div className='postmargin text-sm font-light text-[#777777]'>{formattedTime}</div>
       </div>
     </div>
-    </Link>
+   
   );
 };
 

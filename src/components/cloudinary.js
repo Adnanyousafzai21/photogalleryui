@@ -1,5 +1,4 @@
 // cloudinary.js
-
 const cloudinaryUpload = async (file) => {
     // Cloudinary configurations (replace with your Cloudinary details)
     const cloudinaryCloudName = 'dhpyyn3tq';
