@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MdOutlineInsertPhoto } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
@@ -6,8 +6,12 @@ import cloudinaryUpload from './cloudinary'; // Import cloudinaryUpload function
 import BoxComponent from './CreateBox';
 import Allboxes from './Selectboxes';
 import Selectboxes from './Selectboxes';
+import toast from 'react-hot-toast';
+import axios from 'axios'; // Import Axios
+import { context } from '../contextapi/context';
 
 const UploadImage = () => {
+  const { user } = useContext(context);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +51,13 @@ const UploadImage = () => {
   const token = localStorage.getItem('token');
   const handleForm = async () => {
     try {
+      console.log("user",user)
+      if (!user || user.length === 0) {
+        return toast.error("User not authorized");
+      }
+      if (!selectedBox ||!selectedFiles){
+        return toast.error("Box and Image are required")
+      }
       setIsLoading(true);
 
       const cloudinaryUrls = await Promise.all(selectedFiles.map(cloudinaryUpload));
@@ -55,25 +66,25 @@ const UploadImage = () => {
         isPrivate: isPrivate,
         imageUrls: cloudinaryUrls,
       };
-    
-      const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/img/uploadImage`, {
-        method: "post",
+
+      const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/img/uploadImage`, requestBody, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(requestBody)
+        }
       });
 
-      if (response.ok) {
-        const resdata = await response.json();
-        console.log("Files uploaded successfully:", resdata);
+      if (response.status===201) {
+        const resdata = response.data;
+        console.log("Files uploaded successfully:", resdata.savedImages);
+        toast.success(resdata.message)
         setDescription("");
         setSelectedFiles([]);
         setPreviews([]);
       }
     } catch (error) {
       console.log("Something went wrong:", error);
+      toast.error(error.message)
     } finally {
       setIsLoading(false);
     }
@@ -84,8 +95,8 @@ const UploadImage = () => {
       <BoxComponent />
       <hr className='my-2  mt-4' />
       <div className="rounded-md  m-auto px-3  lg:p-5">
-        <div title='Click here to upload images' className='md:p-10 p-5 m-auto h-9  rounded-md border-sky-500 border flex justify-center items-center'>
-          <label htmlFor="fileInput" className="cursor-pointer text-blue-500 text-2xl">
+        <div title='Click here to upload images' className='md:p-10 p-5 m-auto h-9  rounded-md border-customtext border flex justify-center items-center'>
+          <label htmlFor="fileInput" className="cursor-pointer text-customtextbold text-2xl">
             <MdOutlineInsertPhoto />
           </label>
           <input
@@ -99,8 +110,8 @@ const UploadImage = () => {
         </div>
         <div className="flex">
           {previews.map((preview, index) => (
-            <div key={index} className='duration-1000 w-[30%] m-auto text-center md:h-[120px] border relative'>
-              <IoMdClose className="absolute top-0 right-0 cursor-pointer text-red-500" onClick={() => removeFile(index)} />
+            <div key={index} className='duration-1000 w-[30%] m-auto text-center md:h-[120px] border-customtext relative'>
+              <IoMdClose className="absolute top-0 right-0 cursor-pointer " onClick={() => removeFile(index)} />
               <img
                 src={preview}
                 alt="Selected File Preview"
@@ -116,16 +127,12 @@ const UploadImage = () => {
             type="checkbox"
             checked={isPrivate}
             onChange={togglePrivate}
-      
           />
-           <label htmlFor="isPrivate" className="ml-3">Want to Private the images</label>
+           <label htmlFor="isPrivate" className="ml-3 text-customtext"> : Private</label>
         </div>
         <div className='text-center py-3 flex justify-center w-full'>
-          <button onClick={handleForm} className='px-3 w-[100%] mx-auto text-white bg-sky-500 outline-none rounded text-customwhite'>{isLoading ? "File is Uploading..." : "Post"}</button>
+          <button onClick={handleForm} className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-t-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite'>{isLoading ? "File is Uploading..." : "Post"}</button>
         </div>
-
-
-
       </div>
     </div>
   );

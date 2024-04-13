@@ -6,13 +6,14 @@ import { BiWorld } from "react-icons/bi";
 import { context } from '../contextapi/context';
 const Posts = () => {
 
-    const { user } = useContext(context)
+    const { user, isAuthorized } = useContext(context)
     const token = localStorage.getItem('token')
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        getData();
-    }, []);
+
+
+console.log("isAUTHORIZED",isAuthorized)
+
 
     const getData = async () => {
         try {
@@ -25,6 +26,9 @@ const Posts = () => {
             console.log(error);
         }
     };
+    useEffect(() => {
+        getData();
+    }, [isAuthorized]);
 
     const handlePrivacyChange = async (imageId, isChecked) => {
         try {
@@ -49,12 +53,12 @@ const Posts = () => {
 
 
     return (
-        <div className='w-[80%] flex flex-wrap gap-9 justify-center items-center my-7 m-auto'>
+        <div className='w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center items-center py-10 m-auto'>
             {data.map((image) => {
                 if (!image.isPrivate) {
                     return (
-                        <div className='flex flex-col rounded-md my-2 sm:w-full overflow-hidden md:w-[30%] w-[95%] bg-white shadow-lg' key={image._id}>
-                            <div className="flex justify-between items-center px-5 my-3">
+                        <div className='flex flex-col rounded-md my-2 sm:w-full  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg' key={image._id}>
+                            <div className="flex justify-between items-center px-2    md:px-5 my-3">
                                 <ProfileTitle fullname={image?.user?.fullname} time={image?.createdAt} userId={image.user?._id} />
                                 {user._id === image.user._id ? (
                                     <div className="">
@@ -72,7 +76,7 @@ const Posts = () => {
                                     </div>
                                 )}
                             </div>
-                            <div className="h-80">
+                            <div className="h-80 ">
                                 <img src={image.imageUrls} alt="" className='h-full w-full object-cover rounded-b-md' />
                             </div>
                         </div>

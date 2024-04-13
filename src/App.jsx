@@ -32,7 +32,7 @@ function App() {
           setIsAuthorized(true)
           const userData = response.data;
           setUser(userData.user)
-          console.log("response data", userData);
+        
         } else {
           // Handle error responses
           console.error('Error fetching user:', response);
@@ -43,7 +43,7 @@ function App() {
     };
 
     getUser();
-  }, []);
+  }, [isAuthorized]);
 
 
   return (

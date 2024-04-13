@@ -2,17 +2,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { context } from '../contextapi/context';
 
-function Selectboxes({setSelectedBox, selectedBox}) {
-
+function Selectboxes({ setSelectedBox, selectedBox }) {
   const token = localStorage.getItem('token');
-  const { setBoxes, boxes, createbox } = useContext(context);
+  const { setBoxes, boxes, createbox, isauthorized } = useContext(context);
 
   const fetchBoxes = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/box/getboxByUser`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!response.data) {
@@ -26,7 +25,7 @@ function Selectboxes({setSelectedBox, selectedBox}) {
 
   useEffect(() => {
     fetchBoxes();
-  }, [createbox]);
+  }, [createbox, isauthorized]);
 
   const handleSelectChange = (e) => {
     setSelectedBox(e.target.value);
@@ -35,7 +34,7 @@ function Selectboxes({setSelectedBox, selectedBox}) {
   return (
     <div className="flex flex-wrap justify-center">
       <select
-        className='w-full border border-sky-500 p-1 rounded my-2 outline-none'
+        className='w-full border border-customtext p-1 rounded my-2 outline-none'
         value={selectedBox}
         onChange={handleSelectChange}
       >
@@ -44,10 +43,8 @@ function Selectboxes({setSelectedBox, selectedBox}) {
           <option key={index} value={box._id}>{box.boxName}</option>
         ))}
       </select>
-      <p>Selected Box: {selectedBox}</p>
     </div>
   );
 }
 
 export default Selectboxes;
-

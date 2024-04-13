@@ -19,11 +19,12 @@ const LogIn = () => {
                     'Content-Type': 'application/json',
                 },
             });
-
+         
             if (response.status === 200) {
+                setIsAuthorized(true)
                 const { token } = response.data;
                 localStorage.setItem('token', token);
-                setIsAuthorized(true)
+               
                 toast.success('Login successful!');
                 navigate('/');
             } else {

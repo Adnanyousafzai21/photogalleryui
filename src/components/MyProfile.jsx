@@ -1,5 +1,4 @@
 import React from 'react'
-import MyImages from './MyImages'
 import UploadImage from './UploadimgComponent'
 import Allboxes from './Allboxes'
 

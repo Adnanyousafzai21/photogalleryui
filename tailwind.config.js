@@ -9,7 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        custombg: '#646464',
+        custombg: '#3AB4FF',
+        customtext: '#93C5FD',
+        customtextbold: '#3AB4FF',
       },
     },
   },
