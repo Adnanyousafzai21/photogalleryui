@@ -54,7 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Allimage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path='/dashboard' element={<MyProfile />} />
             <Route path='/SingleFloder/:id' element={<SingleBox />} />
             <Route path="*" element={<Notfound />} />

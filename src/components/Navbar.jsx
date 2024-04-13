@@ -26,8 +26,8 @@ const Navbar = () => {
     }, [isAuthorized]);
     return (
         <div className='w-full bg-white text-sky-500  md:px-0 sticky top-0'>
-            <div className='max-w-[900px] py-3 mx-auto'>
-                <div className='flex justify-between px-5 items-center '>
+            <div className='max-w-[1010px] py-3 mx-auto'>
+                <div className='flex justify-between  items-center '>
                     <div className="">
                         <h2 className='mx:text-xl hidden md:block text-normal font-bold text-sky-500 '>PhotoGallery</h2>
                     </div>
