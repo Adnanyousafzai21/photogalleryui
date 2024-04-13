@@ -43,7 +43,7 @@ const BoxComponent = () => {
 
   return (
     <div className='p-1 px-4'>
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-2'>
         <input
           type='text'
           className='border border-customtext outline-none rounded-md px-3 py-2'
@@ -59,7 +59,7 @@ const BoxComponent = () => {
           />
           <span className='ml-1 font-thin text-customtext'>: Private </span>
         </label>
-        <button onClick={createBox} className='py-1 bg-custombg rounded text-white duration-700 hover:bg-white hover:text-customtextbold border hover:border-t-customtext '>
+        <button onClick={createBox} className='py-1 bg-custombg rounded text-white duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext '>
           CreateBox
         </button>
       </div>

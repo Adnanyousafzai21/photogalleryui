@@ -7,12 +7,10 @@ import Navbar from './components/Navbar'
 import Login from './pages/LogIn'
 import Notfound from './components/Notfound'
 import { context } from './contextapi/context'
-import ImageUploadComponent from './components/UploadimgComponent'
 import Allimage from './pages/Allimages'
 import axios from 'axios';
-import MyProfile from './components/MyProfile'
-// import BoxComponent from './components/BoxeComponent'
 import SingleBox from './components/SingleBox'
+import MyUploads from './pages/Uploads'
 function App() {
   const { isAuthorized, setIsAuthorized, user, setUser } = useContext(context)
 
@@ -55,7 +53,7 @@ function App() {
             <Route path="/" element={<Allimage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path='/dashboard' element={<MyProfile />} />
+            <Route path='//myuploads' element={<MyUploads />} />
             <Route path='/SingleFloder/:id' element={<SingleBox />} />
             <Route path="*" element={<Notfound />} />
           </Routes>

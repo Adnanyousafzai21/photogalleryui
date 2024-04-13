@@ -24,7 +24,6 @@ const LogIn = () => {
                 setIsAuthorized(true)
                 const { token } = response.data;
                 localStorage.setItem('token', token);
-               
                 toast.success('Login successful!');
                 navigate('/');
             } else {
@@ -58,7 +57,7 @@ const LogIn = () => {
                     {errors.password && <p className="text-red-500 mt-2 font-thin">{errors.password.message}</p>}
                 </div>
                 <div className="my-5 text-center">
-                    <button type="submit" className="text-sm hover:bg-white duration-1000 hover:text-sky-500 border-2 border-sky-500 px-7 outline-none bg-sky-500 rounded text-white">Log In</button>
+                    <button type="submit" className="px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite">Log In</button>
                 </div>
                 <p className="text-center text-sm font-thin">Don't have an account? <Link to="/signup" className="text-sky-600 underline ml-1">Sign Up</Link></p>
             </form>

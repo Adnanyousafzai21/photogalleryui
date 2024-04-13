@@ -93,10 +93,10 @@ const UploadImage = () => {
   return (
     <div className='py-5 px-5 m-auto background max-w-[900px] w-[100%] md:w-[600px] bg-white rounded-md  mt-3 shadow-lg'>
       <BoxComponent />
-      <hr className='my-2  mt-4' />
-      <div className="rounded-md  m-auto px-3  lg:p-5">
+      <hr className='my-2 border border-[#ffe6e6] mt-2' />
+      <div className="rounded-md  m-auto mt-[-12px]  pb-0 px-3 lg:p-5">
         <div title='Click here to upload images' className='md:p-10 p-5 m-auto h-9  rounded-md border-customtext border flex justify-center items-center'>
-          <label htmlFor="fileInput" className="cursor-pointer text-customtextbold text-2xl">
+          <label htmlFor="fileInput" className="cursor-pointer text-customtextbold text-xl">
             <MdOutlineInsertPhoto />
           </label>
           <input
@@ -121,17 +121,17 @@ const UploadImage = () => {
           ))}
         </div>
         <Selectboxes setSelectedBox={setSelectedBox} selectedBox={selectedBox} />
-        <div className="flex  items-center mt-4">
+        <div className="flex items-center">
           <input
             id="isPrivate"
             type="checkbox"
             checked={isPrivate}
             onChange={togglePrivate}
           />
-           <label htmlFor="isPrivate" className="ml-3 text-customtext"> : Private</label>
+           <label htmlFor="isPrivate" className="ml-3 mb-2 text-customtext"> : Private</label>
         </div>
-        <div className='text-center py-3 flex justify-center w-full'>
-          <button onClick={handleForm} className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-t-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite'>{isLoading ? "File is Uploading..." : "Post"}</button>
+        <div className='text-center  flex justify-center w-full'>
+          <button onClick={handleForm} className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite'>{isLoading ? "File is Uploading..." : "Post"}</button>
         </div>
       </div>
     </div>

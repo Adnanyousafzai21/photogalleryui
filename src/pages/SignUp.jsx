@@ -1,48 +1,42 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast'
-
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { context } from '../contextapi/context';
 
 const Signup = () => {
-    const navigate = useNavigate()
-    const { register, handleSubmit, reset, watch, formState: { errors, isValid } } = useForm()
+    const {setIsAuthorized}=useContext(context)
+    const navigate = useNavigate();
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
 
-    console.log("this is the sign up page!!")
+    console.log("this is the sign up page!!");
+
     const Registeration = async (data) => {
         try {
-
             const { confirm_Password, ...datatosend } = watch();
-            const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/register`, {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
+            const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/user/register`, data, {
+                headers: { "Content-Type": "application/json" }
             });
-            console.log("this is the response",response)
-            
-            const resdata = await response.json();
-            if (response.ok) {
-                console.log("this is the response",resdata)
-                toast.success(resdata.message)
-                navigate("/")
+            console.log("this is the response", response);
+
+            if (response.status === 200) {
+                setIsAuthorized(true)
+                const { token } = response.data;
+                localStorage.setItem('token', token);
+                toast.success(response.data.message);
+                navigate("/");
                 reset();
             } else {
-                throw new Error(resdata.message || "Login failed");
+                throw new Error(response.data.message || "Registration failed");
             }
         } catch (error) {
-            console.log(error.response)
-            toast.error(error.message)
+            console.log(error.response);
+            toast.error(error.message);
             console.log("there is an error while registration ", error);
         }
     };
 
-
-
-
-    // const handleFileChange = (e) => {
-    //     const file = e.target?.files?.[0]
-    //     setValue("avater", file)
-    // }
     return (
         <>
             <div className="w-[100%] bg-slate-100 md:px-20 px-4  flex items-center justify-center h-screen ">
@@ -60,15 +54,12 @@ const Signup = () => {
                     {errors.email && <p className='text-red-500 mt-[-20px] mb-2 font-thin'>{errors.email.message}</p>}
                     <div className='w-full my-3'>
                         <label className='' htmlFor="">Password:</label>
-
                         <input
                             type="password"  {...register('password', { required: "password is required" })} className='w-full px-2 md:px-6  border-0 border-b outline-none' autoComplete="off" />
-
-
                     </div>
                     {errors.password && <p className='text-red-500 mt-[-20px] mb-2 font-thin'>{errors.password.message}</p>}
                     <div className='w-full my-3'>
-                        <label className='' htmlFor="">Confrim Password:</label>
+                        <label className='' htmlFor="">Confirm Password:</label>
                         <input autoComplete='off' type="password"  {...register('confirm_Password', {
                             required: 'confirm password is required',
                             validate: (value) => value === watch('password') || 'Passwords do not match',
@@ -76,14 +67,12 @@ const Signup = () => {
                     </div>
                     {errors.confirm_Password && <p className='text-red-500 mt-[-20px] mb-2 font-thin'>{errors.confirm_Password.message}</p>}
                     <div className='w-[100%]   flex items-center mb-7 flex-col'>
-                        <input type="submit" value="Create Acoount" className='text-sm hover:bg-white duration-1000 hover:text-sky-500 border-2 border-sky-500 px-7 outline-none bg-sky-500 rounded text-white' />
+                        <input type="submit" value="Create Account" className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite' />
                     </div>
                 </form>
             </div>
-
-
         </>
-    )
-}
+    );
+};
 
-export default Signup
+export default Signup;

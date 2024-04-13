@@ -9,12 +9,13 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navigate = useNavigate();
-    const { isAuthorized, setIsAuthorized, user, setUser } = useContext(context);
+    const { isAuthorized, setIsAuthorized, setBoxes, setUser } = useContext(context);
 
     const handleLogOut = async () => {
         try {
             localStorage.removeItem('token');
             setIsAuthorized(false);
+            setBoxes([])
             setUser([]);
             navigate('/');
             toast.success('Logged out successfully');
@@ -40,7 +41,7 @@ const Navbar = () => {
                             <Link to="/" className="py-2">Allphoto</Link>
                         </li>
                         <li className={`my-2 duration-500  mx-auto`}>
-                            <Link to="/dashboard" className="py-2">Dashboard</Link>
+                            <Link to="/myuploads" className="py-2">Upload's</Link>
                         </li>
                         {!isAuthorized ? (
                             <li className={`my-2 duration-500 md:hover:bg-none  mx-auto`}>

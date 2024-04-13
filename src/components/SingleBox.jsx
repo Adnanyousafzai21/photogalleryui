@@ -46,10 +46,10 @@ const SingleBox = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 md:w-70 py-10 lg:w-full min-h-screen -z-50" >
-      <div className="flex flex-wrap -mx-4">
+    <div className="w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center items-center py-10 m-auto" >
+      
         {images.map((image, index) => (
-          <div key={image._id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-4">
+          <div key={image._id} className="flex flex-col rounded-md my-2 sm:w-full  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg">
             <div className="relative border bg-bg-costumtext rounded-md overflow-hidden">
               <div className="text-customtext px-2 py-1 rounded text-sm">{image.user.fullname}</div>
               <img src={image.imageUrls} alt="Image" className="w-full h-80 object-cover" />
@@ -65,7 +65,6 @@ const SingleBox = () => {
             </div>
           </div>
         ))}
-      </div>
     </div>
   );
 };
