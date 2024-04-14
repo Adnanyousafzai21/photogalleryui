@@ -8,6 +8,10 @@ export default {
   ],
   theme: {
     extend: {
+      scale: {
+        '101': '1.01',
+        '103': '1.03',
+      },
       colors: {
         custombg: '#3AB4FF',
         customtext: '#93C5FD',

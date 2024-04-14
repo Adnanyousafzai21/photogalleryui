@@ -111,7 +111,7 @@ const UploadImage = () => {
         <div className="flex">
           {previews.map((preview, index) => (
             <div key={index} className='duration-1000 w-[30%] m-auto text-center md:h-[120px] border-customtext relative'>
-              <IoMdClose className="absolute top-0 right-0 cursor-pointer " onClick={() => removeFile(index)} />
+              <IoMdClose className="absolute top-0 right-0 cursor-pointer text-red-500 " onClick={() => removeFile(index)} />
               <img
                 src={preview}
                 alt="Selected File Preview"
@@ -121,14 +121,14 @@ const UploadImage = () => {
           ))}
         </div>
         <Selectboxes setSelectedBox={setSelectedBox} selectedBox={selectedBox} />
-        <div className="flex items-center">
+        <div className="flex items-center mb-2 ">
           <input
             id="isPrivate"
             type="checkbox"
             checked={isPrivate}
             onChange={togglePrivate}
           />
-           <label htmlFor="isPrivate" className="ml-3 mb-2 text-customtext"> : Private</label>
+           <label htmlFor="isPrivate" className="ml-2  text-customtext"> : Private</label>
         </div>
         <div className='text-center  flex justify-center w-full'>
           <button onClick={handleForm} className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite'>{isLoading ? "File is Uploading..." : "Post"}</button>

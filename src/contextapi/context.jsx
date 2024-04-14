@@ -10,7 +10,9 @@ const AppWrapper = ({children})=>{
     const [deleteimag,setdeleteimag]=useState(false)
     const [createbox, setCreatebox]= useState(false)
 
-    return (<context.Provider value={{isAuthorized , setdeleteimag, deleteimag, setIsAuthorized, user, setUser, boxes, setBoxes, createbox, setCreatebox}}>
+    return (<context.Provider value={{
+        isAuthorized , setdeleteimag, deleteimag, setIsAuthorized, user, setUser, boxes, setBoxes, createbox, setCreatebox
+        }}>
 {children}
     </context.Provider>)
 }

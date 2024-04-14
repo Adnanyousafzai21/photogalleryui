@@ -55,12 +55,12 @@ const Posts = () => {
 
 
     return (
-        <div className='w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center min-h-screen items-center py-10 m-auto'>
+        <div className='w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center min-h-screen items-start py-10 m-auto'>
             {data.map((image) => {
                 if (!image.isPrivate) {
                     return (
-                        <div className='flex flex-col rounded-md my-2 sm:w-full relative  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg' key={image._id}>
-                            <div className="flex justify-between items-center w-full px-2   absolute py-1 ">
+                        <div className='flex flex-col rounded-md hover:scale-101 duration-300 my-2 sm:w-full relative border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg' key={image._id}>
+                        <div className="flex justify-between items-center w-full px-2   absolute py-1 ">
                                 <ProfileTitle fullname={image?.user?.fullname} time={image?.createdAt} userId={image.user?._id} />
                                 {user?._id === image.user?._id ? (
                                     <div className="mr-[2px] flex flex-col items-end ">

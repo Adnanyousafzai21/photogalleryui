@@ -27,9 +27,9 @@ const ProfileTitle = ({ avater, time = "2024-01-18T07:49:43.261Z", fullname, cla
 
   return (
     <div className="flex gap-1 items-center rounded-md text-[#FFFFFF] hover:text-customtextbold duration-700 ">
-      <PiUserSwitchLight  className="text-4xl"/>
+      <PiUserSwitchLight  className="text-5xl "/>
       <div>
-        <div className='text-normal font-normal capitalize'>{fullname}</div>
+        <div className='font-normal text-sm capitalize'>{fullname}</div>
         <div className='postmargin text-sm font-light '>{formattedTime}</div>
       </div>
     </div>
