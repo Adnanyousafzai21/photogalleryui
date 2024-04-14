@@ -2,18 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BiDotsHorizontal, BiDotsVertical } from 'react-icons/bi';
 import ProfileTitle from '../components/ProfileTitle';
 import axios from 'axios';
-// import { BiWorld } from "react-icons/bi";
+// import { MdDeleteOutline } from "react-icons/md";
 import { MdPublic } from "react-icons/md";
 import { context } from '../contextapi/context';
+import Deleteimage from '../components/Deleteimage';
 const Posts = () => {
 
-    const { user, isAuthorized } = useContext(context)
+    const { user, isAuthorized, deleteimag } = useContext(context)
     const token = localStorage.getItem('token')
     const [data, setData] = useState([]);
 
 
 
-console.log("isAUTHORIZED",isAuthorized)
+    console.log("isAUTHORIZED", isAuthorized)
 
 
     const getData = async () => {
@@ -29,7 +30,7 @@ console.log("isAUTHORIZED",isAuthorized)
     };
     useEffect(() => {
         getData();
-    }, [isAuthorized]);
+    }, [isAuthorized, deleteimag]);
 
     const handlePrivacyChange = async (imageId, isChecked) => {
         try {
@@ -54,25 +55,29 @@ console.log("isAUTHORIZED",isAuthorized)
 
 
     return (
-        <div className='w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center items-center py-10 m-auto'>
+        <div className='w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center min-h-screen items-center py-10 m-auto'>
             {data.map((image) => {
-                if (!image.isPrivate ) {
+                if (!image.isPrivate) {
                     return (
                         <div className='flex flex-col rounded-md my-2 sm:w-full relative  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg' key={image._id}>
                             <div className="flex justify-between items-center w-full px-2   absolute py-1 ">
                                 <ProfileTitle fullname={image?.user?.fullname} time={image?.createdAt} userId={image.user?._id} />
-                                {user._id === image.user._id ? (
-                                    <div className="mr-[2px]">
-                                        <input
-                                            type="checkbox"
-                                            checked={image.isPrivate}
-                                            onChange={e => handlePrivacyChange(image._id, e.target.checked)}
-                                            className="mr-1 outline-sky-300"
-                                        />
-                                        <span className='text-[#FFFFFF]'> {image.isPrivate ? ": Private" : ": Public"}</span>
+                                {user?._id === image.user?._id ? (
+                                    <div className="mr-[2px] flex flex-col items-end ">
+                                        <div className='text-[#FFFFFF]  hover:text-customtextbold duration-700'>
+                                            <span className='mr-2'> {image.isPrivate ? "Private :" : "Public :"}</span>
+                                            <input
+                                                type="checkbox"
+                                                checked={image.isPrivate}
+                                                onChange={e => handlePrivacyChange(image._id, e.target.checked)}
+                                                className="mr-1 outline-sky-300"
+                                            /> </div>
+                                        <div>
+                                            <Deleteimage imageId={image._id} />
+                                        </div>
                                     </div>
                                 ) : (
-                                    <div className="text-[#FFFFFF] text-3xl">
+                                    <div className="text-[#FFFFFF] text-3xl hover:text-customtextbold duration-700">
                                         <MdPublic />
                                     </div>
                                 )}

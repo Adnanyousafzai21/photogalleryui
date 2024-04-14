@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import ProfileTitle from './ProfileTitle';
+import Deleteimage from './Deleteimage';
+import { context } from '../contextapi/context';
 
 const SingleBox = () => {
   const [images, setImages] = useState([]);
   const { id } = useParams();
   const token = localStorage.getItem("token");
+
+  const {deleteimag}= useContext(context)
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -22,7 +27,7 @@ const SingleBox = () => {
     };
 
     fetchImages();
-  }, [id, token]);
+  }, [id, token, deleteimag]);
 
   const handlePrivacyChange = async (imageId, isChecked) => {
     try {
@@ -46,26 +51,33 @@ const SingleBox = () => {
   };
 
   return (
-    <div className="w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center items-center py-10 m-auto" >
-      
-        {images.map((image, index) => (
-          <div key={image._id} className="flex flex-col rounded-md my-2 sm:w-full  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg">
-            <div className="relative border bg-bg-costumtext rounded-md overflow-hidden">
-              <div className="text-customtext px-2 py-1 rounded text-sm">{image.user.fullname}</div>
-              <img src={image.imageUrls} alt="Image" className="w-full h-80 object-cover" />
-              <div className="absolute top-0 right-0 text-customtext px-2 py-1 rounded text-sm flex items-center">
+    <div className="w-[95%] max-w-[1210px] flex flex-wrap gap-9 justify-center  items-center py-10 m-auto" >
+      {images.map((image, index) => (
+        <div key={image._id} className="flex flex-col rounded-md my-2 sm:w-full relative  border overflow-hidden md:w-[30%] w-[100%] bg-white shadow-lg">
+          <div className="flex justify-between items-center w-full px-2   absolute py-1">
+            <ProfileTitle fullname={image?.user?.fullname} time={image?.createdAt} userId={image.user?._id} />
+            <div className='mr-[2px] flex flex-col items-end '>
+              <div className='text-[#FFFFFF]  hover:text-customtextbold duration-700'>
+              <span className='text-customtext'>{image.isPrivate ? "Private : " : "Public : "}</span>
                 <input
                   type="checkbox"
                   checked={image.isPrivate}
                   onChange={e => handlePrivacyChange(image._id, e.target.checked)}
                   className="mr-1"
                 />
-              <span className='text-customtext'>{image.isPrivate ? "Private" : "Public"}</span>  
+              </div>
+              <div>
+                <Deleteimage imageId={image._id} />
               </div>
             </div>
           </div>
-        ))}
-    </div>
+          <div>
+            <img src={image.imageUrls} alt="Image" className="w-full -z-50 h-80 object-cover" />
+          </div>
+        </div>
+      ))
+      }
+    </div >
   );
 };
 
