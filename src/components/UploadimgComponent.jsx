@@ -131,7 +131,7 @@ const UploadImage = () => {
            <label htmlFor="isPrivate" className="ml-2  text-customtext"> : Private</label>
         </div>
         <div className='text-center  flex justify-center w-full'>
-          <button onClick={handleForm} className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite'>{isLoading ? "File is Uploading..." : "Post"}</button>
+          <button onClick={handleForm} className='px-3 w-[100%] py-1 duration-700 hover:bg-white hover:text-customtextbold border hover:border-customtext  mx-auto text-white bg-custombg outline-none rounded text-customwhite'>{isLoading ? "Image Uploading..." : "Upload"}</button>
         </div>
       </div>
     </div>

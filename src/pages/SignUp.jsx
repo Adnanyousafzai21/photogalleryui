@@ -39,7 +39,7 @@ const Signup = () => {
 
     return (
         <>
-            <div className="w-[100%] bg-slate-100 md:px-20 px-4  flex items-center justify-center h-screen ">
+            <div className="w-[100%] bg-slate-100 md:px-20 px-4  flex items-start justify-center h-screen ">
                 <form onSubmit={handleSubmit(Registeration)} className=' lg:w-[40%] md:w-[50%] text-sm  m-auto w-[100%]  bg-white py-7 lg:px-20 px-10  rounded-md'>
                     <h3 className='text-sky-500 text-center font-bold text-xl'> SignUp </h3>
                     <div className='w-full my-3 '>

@@ -40,7 +40,7 @@ const LogIn = () => {
     };
 
     return (
-        <div className="bg-slate-100 w-full py-8 h-screen flex justify-center items-center">
+        <div className="bg-slate-100 w-full py-8 h-screen flex justify-center items-start">
             <form onSubmit={handleSubmit(handleLogin)} autoComplete="off" className="bg-white rounded-md w-[400px] px-10 py-8">
                 <h2 className="text-sky-500 text-center font-bold text-xl mb-8">Log In</h2>
                 <div className="my-5">
