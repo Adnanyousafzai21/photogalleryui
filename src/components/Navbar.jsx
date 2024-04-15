@@ -38,7 +38,7 @@ const Navbar = () => {
                     </div>
                     <ul className={`lg:pl-0 duration-500  justify-between gap-5 md:justify-center  flex lg:static  py-0 lg:mt-auto itmes-center left-0 gap-15 lg:gap-3 z-[10] lg:py-0 lg:flex-row lg:w-auto  `}>
                         <li className={`my-2 duration-500   mx-auto`}>
-                            <Link to="/" className="py-2 hover:text-sky-600 duration-700 hover:font-medium">Allphoto</Link>
+                            <Link to="/" className="py-2 hover:text-sky-600 duration-700 hover:font-medium"> Newsfeed </Link>
                         </li>
                         <li className={`my-2 duration-500  mx-auto`}>
                             <Link to="/myuploads" className="py-2 hover:text-sky-600 duration-700 hover:font-medium">Upload's</Link>
