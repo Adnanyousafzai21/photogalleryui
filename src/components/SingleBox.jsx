@@ -15,7 +15,7 @@ const SingleBox = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get(`http://localhost:8001/api/v1/img/SingleFloder/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/img/SingleFloder/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
